@@ -17,12 +17,12 @@
 #### 📊 ``Commits``
 
 <img
-  src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=AndreiMikh&theme=github_dark&utcOffset=8"
+src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=AndreiMikh&theme=default&utcOffset=8"
   alt="Commit Activity">
 
 #### 🖥️ ``Top Languages``
 
 <img
-  src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=AndreiMikh&theme=github_dark"
-  alt="Top Languages by Commit">
+src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=AndreiMikh&theme=default"
+  alt="Top Languages">
  
