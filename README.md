@@ -23,6 +23,5 @@ src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?u
 #### 🌌 `Languages`
 
 <img
-  src="https://github-readme-stats.vercel.app/api/top-langs/?username=AndreiMikh&layout=compact&langs_count=12&theme=default&hide_border=true&bg_color=ffffff"
-  alt="AndreiMikh's Top Languages"
-/>
+src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=AndreiMikh&theme=default"
+  alt="Top Languages">
