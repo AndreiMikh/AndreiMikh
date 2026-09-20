@@ -13,11 +13,12 @@
 
 <h2>📊 GitHub Stats</h2>
 
-<img src="https://github-readme-stats.vercel.app/api?username=AndreiMikh&show_icons=true&hide_border=true" alt="GitHub Stats">
+<img src="https://github-readme-stats.vercel.app/api?username=AndreiMikh&show_icons=true" alt="GitHub Stats">
+
 
 <h2>📈 Activity</h2>
 
-<img src="https://github-readme-activity-graph.vercel.app/graph?username=AndreiMikh&hide_border=true" alt="GitHub Activity Graph">
+<img src="https://github-readme-activity-graph.vercel.app/graph?username=AndreiMikh" alt="GitHub Activity Graph">
 
 #### 🐾 ``Visitors``
 ![](https://count.getloli.com/get/@:AndreiMikh)
