@@ -1,4 +1,4 @@
-#### ``Hi There``
+## Hi There 👋
 
 <picture>
   <source media="(prefers-color-scheme: dark)"
@@ -15,11 +15,14 @@
 
 <img src="https://github-readme-stats.vercel.app/api?username=AndreiMikh&show_icons=true" alt="GitHub Stats">
 
-
 <h2>📈 Activity</h2>
 
-<img src="https://github-readme-activity-graph.vercel.app/graph?username=AndreiMikh" alt="GitHub Activity Graph">
+<img src="https://github-readme-activity-graph.vercel.app/graph?username=AndreiMikh" alt="GitHub Activity">
 
-#### 🐾 ``Visitors``
-![](https://count.getloli.com/get/@:AndreiMikh)
- 
+<h2>💻 Languages I Use</h2>
+
+<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=AndreiMikh&layout=compact&langs_count=8" alt="Languages">
+
+<h2>👀 Visitors</h2>
+
+<img src="https://komarev.com/ghpvc/?username=AndreiMikh&label=Profile%20Views&style=flat" alt="Visitors">
