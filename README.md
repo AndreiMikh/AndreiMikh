@@ -22,19 +22,7 @@ src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?u
 
 #### 🌌 `Languages`
 
-<picture>
-  <source
-    srcset="https://github-readme-stats.vercel.app/api/top-langs/?username=AndreiMikh&layout=compact&theme=default&hide=markdown&langs_count=12&hide_border=true&bg_color=00000000"
-    media="(prefers-color-scheme: light)"
-  />
-
-  <source
-    srcset="https://github-readme-stats.vercel.app/api/top-langs/?username=AndreiMikh&layout=compact&theme=dark&hide=markdown&langs_count=12&hide_border=true&bg_color=00000000"
-    media="(prefers-color-scheme: dark)"
-  />
-
-  <img
-    src="https://github-readme-stats.vercel.app/api/top-langs/?username=AndreiMikh&layout=compact&theme=default&hide=markdown&langs_count=12&hide_border=true&bg_color=00000000"
-    alt="AndreiMikh's top languages"
-  />
-</picture>
+<img
+  src="https://github-readme-stats.vercel.app/api/top-langs/?username=AndreiMikh&layout=compact&langs_count=12&theme=default&hide_border=true&bg_color=ffffff"
+  alt="AndreiMikh's Top Languages"
+/>
