@@ -12,7 +12,7 @@
 </picture>
 
 #### 🐾 ``Visitors``
-![](https://count.getloli.com/get/@:AndreiMikh)
+![](https://count.getloli.com/get/@AndreiMikh.github.io?theme=rule34)
 
 #### 📊 ``Commits``
 
