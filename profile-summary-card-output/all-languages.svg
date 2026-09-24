@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="423" viewBox="0 0 900 423">
+<rect x="0" y="0" width="900" height="423" rx="18" fill="#0d1117" stroke="#30363d"/>
+<text x="40" y="45" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700" fill="#f0f6fc">🌌 Languages</text>
+<text x="860" y="44" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#8b949e">6 languages detected</text>
+<text x="40" y="73" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#8b949e">All non-fork repositories</text>
+<line x1="40" y1="88" x2="860" y2="88" stroke="#30363d"/>
+<text x="40" y="130" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#f0f6fc">C</text>
+<rect x="190" y="115" width="470" height="16" rx="8" fill="#21262d"/>
+<rect x="190" y="115" width="470" height="16" rx="8" fill="#58a6ff"/>
+<text x="680" y="130" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#8b949e">52.19%</text>
+<text x="860" y="130" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#6e7681">209.1 KB</text>
+<text x="40" y="173" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#f0f6fc">Kotlin</text>
+<rect x="190" y="158" width="470" height="16" rx="8" fill="#21262d"/>
+<rect x="190" y="158" width="276" height="16" rx="8" fill="#58a6ff"/>
+<text x="680" y="173" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#8b949e">30.72%</text>
+<text x="860" y="173" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#6e7681">123.1 KB</text>
+<text x="40" y="216" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#f0f6fc">C++</text>
+<rect x="190" y="201" width="470" height="16" rx="8" fill="#21262d"/>
+<rect x="190" y="201" width="106" height="16" rx="8" fill="#58a6ff"/>
+<text x="680" y="216" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#8b949e">11.78%</text>
+<text x="860" y="216" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#6e7681">47.2 KB</text>
+<text x="40" y="259" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#f0f6fc">Shell</text>
+<rect x="190" y="244" width="470" height="16" rx="8" fill="#21262d"/>
+<rect x="190" y="244" width="29" height="16" rx="8" fill="#58a6ff"/>
+<text x="680" y="259" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#8b949e">3.29%</text>
+<text x="860" y="259" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#6e7681">13.2 KB</text>
+<text x="40" y="302" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#f0f6fc">Assembly</text>
+<rect x="190" y="287" width="470" height="16" rx="8" fill="#21262d"/>
+<rect x="190" y="287" width="17" height="16" rx="8" fill="#58a6ff"/>
+<text x="680" y="302" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#8b949e">1.97%</text>
+<text x="860" y="302" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#6e7681">7.9 KB</text>
+<text x="40" y="345" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#f0f6fc">Makefile</text>
+<rect x="190" y="330" width="470" height="16" rx="8" fill="#21262d"/>
+<rect x="190" y="330" width="4" height="16" rx="8" fill="#58a6ff"/>
+<text x="680" y="345" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#8b949e">0.04%</text>
+<text x="860" y="345" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#6e7681">166 B</text>
+<text x="40" y="401" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#6e7681">3 repositories scanned</text>
+<text x="860" y="401" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#6e7681">Updated automatically</text>
+</svg>
