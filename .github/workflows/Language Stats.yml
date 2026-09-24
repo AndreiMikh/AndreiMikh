@@ -34,7 +34,7 @@ jobs:
           OUTPUTFILE="${OUTPUTDIR}/all-languages.svg"
           mkdir -p "${OUTPUTDIR}"
           echo "🌌 Generating GitHub Language Statistics"
-          echo "👤 User : ${GITHUBUSERNAME}"
+          echo "👤 User : ${GITHUB_USERNAME}"
           echo "📄 File : ${OUTPUTFILE}"
           echo ""
 
@@ -45,7 +45,7 @@ jobs:
           from collections import defaultdict
           from html import escape
           
-          USERNAME = os.environ["GITHUBUSERNAME"]
+          USERNAME = os.environ["GITHUB_USERNAME"]
           OUTPUTFILE = "profile-summary-card-output/all-languages.svg"
 
           # GitHub API Helper
