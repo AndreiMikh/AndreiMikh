@@ -23,5 +23,5 @@ src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?u
 #### 🌌 `Languages`
 
 <img
-src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=AndreiMikh&theme=default"
-  alt="Top Languages">
+  src="./profile-summary-card-output/all-languages.svg"
+  alt="All Languages Used Across Repositories">
