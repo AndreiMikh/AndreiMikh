@@ -15,18 +15,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # ------------------------------------------------------------------------
-      # Checkout profile repository
-      # ------------------------------------------------------------------------
+
+      # Checkout Profile Repository
       - name: Checkout repository
         uses: actions/checkout@v5
         with:
           fetch-depth: 1
 
-      # ------------------------------------------------------------------------
-      # Generate Language statistics
-      # ------------------------------------------------------------------------
-      - name: Generate Language statistics
+      # Generate Language Statistics
+      - name: Generate Language Statistics
         env:
           GH_TOKEN: ${{ github.token }}
           GITHUB_USERNAME: AndreiMikh
@@ -35,11 +32,9 @@ jobs:
 
           OUTPUTDIR="profile-summary-card-output"
           OUTPUTFILE="${OUTPUTDIR}/all-languages.svg"
-
           mkdir -p "${OUTPUTDIR}"
-
           echo "🌌 Generating GitHub Language Statistics"
-          echo "👤 User : ${GITHUB_USERNAME}"
+          echo "👤 User : ${GITHUBUSERNAME}"
           echo "📄 File : ${OUTPUTFILE}"
           echo ""
 
@@ -49,13 +44,11 @@ jobs:
           import subprocess
           from collections import defaultdict
           from html import escape
-
-          USERNAME = os.environ["GITHUB_USERNAME"]
+          
+          USERNAME = os.environ["GITHUBUSERNAME"]
           OUTPUTFILE = "profile-summary-card-output/all-languages.svg"
 
-          # --------------------------------------------------------------------
           # GitHub API Helper
-          # --------------------------------------------------------------------
           def gh_api(endpoint):
               result = subprocess.run(
                   [
@@ -67,12 +60,8 @@ jobs:
                   capture_output=True,
                   text=True,
               )
-
               return json.loads(result.stdout)
-
-          # --------------------------------------------------------------------
           # Get All Public Repositories Owned by the Profile
-          # --------------------------------------------------------------------    
           repositories = []
           page = 1
           while True:
@@ -82,110 +71,84 @@ jobs:
                   f"&per_page=100"
                   f"&page={page}"
               )
-
               data = gh_api(endpoint)
-
               if not data:
                   break
-
               repositories.extend(data)
 
               if len(data) < 100:
                   break
-
               page += 1
-
           print(f"📦 Repositories Found: {len(repositories)}")
           print()
 
-          # --------------------------------------------------------------------
           # Aggregate Language Bytes
-          # --------------------------------------------------------------------
           languagebytes = defaultdict(int)
           scanned = 0
           skippedforks = 0
           failed = 0
           for repo in repositories:
-              fullname = repo["fullname"]
-
+              fullname = repo["full_name"]
               # Ignore Forks
               if repo.get("fork", False):
                   print(f"⏭️  Skipping Fork: {fullname}")
                   skippedforks += 1
                   continue
 
-              languagesurl = repo.get("languagesurl")
-
-              if not languagesurl:
-                  continue
-
+              # Get Repository Language Statistics
               try:
                   languages = gh_api(
                       f"/repos/{fullname}/languages"
                   )
-
                   for language, bytecount in languages.items():
                       languagebytes[language] += int(bytecount)
-
                   scanned += 1
-
                   print(f"✔️ Scanned: {fullname}")
-
               except subprocess.CalledProcessError as error:
                   failed += 1
+                  errormessage = error.stderr.strip()
+                  if errormessage:
+                      print(
+                          f"⚠️ Failed to Scan {fullname}: "
+                          f"{errormessage}"
+                      )
+                  else:
+                      print(
+                          f"⚠️ Failed to Scan {fullname}"
+                      )
 
-                  print(
-                      f"⚠️ Failed to Scan {fullname}: "
-                      f"{error.stderr.strip()}"
-                  )
-
-          # --------------------------------------------------------------------
-          # Make sure something was actually found
-          # --------------------------------------------------------------------
+          # Make Sure Language Data Exists
           if not languagebytes:
               raise RuntimeError(
                   "No Language Data was Returned by GitHub"
               )
-
-          # --------------------------------------------------------------------
-          # Sort Every Detected Language by Total Byte Count
-          # --------------------------------------------------------------------
+          # Sort Every Detected Language
           languages = sorted(
               languagebytes.items(),
               key=lambda item: item[1],
               reverse=True,
           )
-
           totalbytes = sum(
               bytecount
               for _, bytecount in languages
           )
-
           maxbytes = max(
               bytecount
               for _, bytecount in languages
           )
-
-          # --------------------------------------------------------------------
           # SVG Dimensions
-          # --------------------------------------------------------------------
           WIDTH = 900
-
           HEADERHEIGHT = 105
           ROWHEIGHT = 43
           FOOTERHEIGHT = 60
-
           HEIGHT = (
               HEADERHEIGHT
               + len(languages) * ROWHEIGHT
               + FOOTERHEIGHT
           )
 
-          # --------------------------------------------------------------------
           # SVG
-          # --------------------------------------------------------------------
           svg = []
-
           svg.append(
               f'<svg xmlns="http://www.w3.org/2000/svg" '
               f'width="{WIDTH}" height="{HEIGHT}" '
@@ -204,9 +167,7 @@ jobs:
               f'stroke="#30363d"/>'
           )
 
-          # --------------------------------------------------------------------
           # Header
-          # --------------------------------------------------------------------
           svg.append(
               '<text '
               'x="40" '
@@ -218,7 +179,6 @@ jobs:
               '🧾 Languages'
               '</text>'
           )
-
           svg.append(
               f'<text '
               f'x="{WIDTH - 40}" '
@@ -230,7 +190,6 @@ jobs:
               f'{len(languages)} Languages Detected'
               f'</text>'
           )
-
           svg.append(
               f'<text '
               f'x="40" '
@@ -238,10 +197,9 @@ jobs:
               f'font-family="Arial, Helvetica, sans-serif" '
               f'font-size="13" '
               f'fill="#8b949e">'
-              f'All Non-Fork Repositories'
+              f'All NonFork Repositories'
               f'</text>'
           )
-
           svg.append(
               f'<line '
               f'x1="40" '
@@ -251,25 +209,20 @@ jobs:
               f'stroke="#30363d"/>'
           )
 
-          # --------------------------------------------------------------------
           # Language Rows
-          # --------------------------------------------------------------------
           for index, (language, bytecount) in enumerate(languages):
-
               y = HEADERHEIGHT + index * ROWHEIGHT
-
               percentage = (
                   bytecount / totalbytes * 100
                   if totalbytes
                   else 0
               )
 
-              # Scale the Visual Bar Relative to the Largest Language
+              # Scale Bar Relative to Largest Language
               barwidth = max(
                   4,
                   int((bytecount / maxbytes) * 470)
               )
-
               # Language Name
               svg.append(
                   f'<text '
@@ -281,7 +234,6 @@ jobs:
                   f'{escape(language)}'
                   f'</text>'
               )
-
               # Bar Background
               svg.append(
                   f'<rect '
@@ -292,18 +244,16 @@ jobs:
                   f'rx="8" '
                   f'fill="#21262d"/>'
               )
-
               # Bar
               svg.append(
                   f'<rect '
                   f'x="190" '
                   f'y="{y + 10}" '
-                  f'width="{bar_width}" '
+                  f'width="{barwidth}" '
                   f'height="16" '
                   f'rx="8" '
                   f'fill="#58a6ff"/>'
               )
-
               # Percentage
               svg.append(
                   f'<text '
@@ -315,15 +265,18 @@ jobs:
                   f'{percentage:.2f}%'
                   f'</text>'
               )
-
-              # Size
+              # Human-Readable Size
               if bytecount >= 1024 * 1024:
-                  size = f"{bytecount / (1024 * 1024):.1f} MB"
-              elif byte_count >= 1024:
-                  size = f"{bytecount / 1024:.1f} KB"
+                  size = (
+                      f"{bytecount / (1024 * 1024):.1f} MB"
+                  )
+              elif bytecount >= 1024:
+                  size = (
+                      f"{bytecount / 1024:.1f} KB"
+                  )
               else:
                   size = f"{bytecount} B"
-
+              # Size
               svg.append(
                   f'<text '
                   f'x="{WIDTH - 40}" '
@@ -336,26 +289,22 @@ jobs:
                   f'</text>'
               )
 
-          # --------------------------------------------------------------------
           # Footer
-          # --------------------------------------------------------------------
-          footer_y = HEIGHT - 22
-
+          footery = HEIGHT - 22
           svg.append(
               f'<text '
               f'x="40" '
-              f'y="{footer_y}" '
+              f'y="{footery}" '
               f'font-family="Arial, Helvetica, sans-serif" '
               f'font-size="12" '
               f'fill="#6e7681">'
               f'{scanned} Repositories Scanned'
               f'</text>'
           )
-
           svg.append(
               f'<text '
               f'x="{WIDTH - 40}" '
-              f'y="{footer_y}" '
+              f'y="{footery}" '
               f'text-anchor="end" '
               f'font-family="Arial, Helvetica, sans-serif" '
               f'font-size="12" '
@@ -363,12 +312,9 @@ jobs:
               f'Updated Automatically'
               f'</text>'
           )
-
           svg.append("</svg>")
 
-          # --------------------------------------------------------------------
           # Write SVG
-          # --------------------------------------------------------------------
           with open(
               OUTPUTFILE,
               "w",
@@ -376,46 +322,39 @@ jobs:
           ) as file:
               file.write("\n".join(svg))
 
-          # --------------------------------------------------------------------
           # Summary
-          # --------------------------------------------------------------------
           print()
           print("🎉 Language Statistics Generated")
-          
+          print()
           for language, bytecount in languages:
-              percentage = bytecount / totalbytes * 100
-
+              percentage = (
+                  bytecount / totalbytes * 100
+              )
               print(
                   f"{language:20} "
                   f"{percentage:7.2f}% "
                   f"{bytecount:,} bytes"
               )
-
           print()
-          print(f"📦 Repositories Found : {len(repositories)}")
-          print(f"🔎 Repositories Scanned : {scanned}")
-          print(f"⏭️  Forks Skipped : {skippedforks}")
-          print(f"⚠️ Failed Repositories : {failed}")
-          print(f"🌌 Languages Detected : {len(languages)}")
-          print(f"📄 Output : {OUTPUTFILE}")
+          print(f"📦 Repositories Found     : {len(repositories)}")
+          print(f"🔎 Repositories Scanned   : {scanned}")
+          print(f"⏭️  Forks Skipped         : {skippedforks}")
+          print(f"⚠️ Failed Repositories    : {failed}")
+          print(f"🌌 Languages Detected     : {len(languages)}")
+          print(f"📄 Output                 : {OUTPUTFILE}")
           PY
 
-      # ------------------------------------------------------------------------
       # Commit Generated SVG
-      # ------------------------------------------------------------------------
       - name: Commit Language Statistics
         run: |
           set -Eeuo pipefail
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
           git add profile-summary-card-output/all-languages.svg
-
           if git diff --cached --quiet; then
             echo "ℹ️ No Language Statistics Changes"
             exit 0
           fi
-
           git commit -m "chore: update language statistics"
           git push
