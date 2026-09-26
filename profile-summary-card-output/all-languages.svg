@@ -7,18 +7,18 @@
 <text x="40" y="130" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#f0f6fc">C</text>
 <rect x="190" y="115" width="470" height="16" rx="8" fill="#21262d"/>
 <rect x="190" y="115" width="470" height="16" rx="8" fill="#58a6ff"/>
-<text x="680" y="130" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#8b949e">40.75%</text>
+<text x="680" y="130" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#8b949e">40.74%</text>
 <text x="860" y="130" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#6e7681">209.1 KB</text>
 <text x="40" y="173" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#f0f6fc">Kotlin</text>
 <rect x="190" y="158" width="470" height="16" rx="8" fill="#21262d"/>
 <rect x="190" y="158" width="296" height="16" rx="8" fill="#58a6ff"/>
-<text x="680" y="173" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#8b949e">25.70%</text>
+<text x="680" y="173" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#8b949e">25.69%</text>
 <text x="860" y="173" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#6e7681">131.9 KB</text>
 <text x="40" y="216" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#f0f6fc">Python</text>
 <rect x="190" y="201" width="470" height="16" rx="8" fill="#21262d"/>
 <rect x="190" y="201" width="233" height="16" rx="8" fill="#58a6ff"/>
-<text x="680" y="216" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#8b949e">20.21%</text>
-<text x="860" y="216" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#6e7681">103.7 KB</text>
+<text x="680" y="216" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#8b949e">20.24%</text>
+<text x="860" y="216" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#6e7681">103.9 KB</text>
 <text x="40" y="259" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#f0f6fc">C++</text>
 <rect x="190" y="244" width="470" height="16" rx="8" fill="#21262d"/>
 <rect x="190" y="244" width="106" height="16" rx="8" fill="#58a6ff"/>
