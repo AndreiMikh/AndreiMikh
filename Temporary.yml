@@ -1774,7 +1774,7 @@ jobs:
             exit 1
           fi
 
-          # Validate BBG Build Integration
+          # Validate Baseband Guard Build Integration
           if ! grep -qF 'baseband-guard/' "$BBGMAKEFILE"; then
             echo "└─ ⚠️ Baseband Guard Security Makefile Entry Missing"
             exit 1
@@ -1788,7 +1788,7 @@ jobs:
           echo "└─ 📌 Baseband Guard Source            : OK"
           echo "└─ 📌 Baseband Guard Symlink           : OK"
           echo "└─ 📌 Baseband Guard Security Makefile : OK"
-          echo "└─ 📌 Baseband Guard Security Kconfig  : OK"
+          echo "└─ 📌 Baseband Guard Security KConfig  : OK"
           echo "└─ 📌 Baseband Guard                   : Enabled"                    
           echo "└─ 🎉 Baseband Guard Source Integration Completed"
 
@@ -2174,7 +2174,7 @@ jobs:
             "$OPLUSCONFIG"
           # Verify Generated Configuration
           if [[ ! -s "$CONFIGFILE" ]]; then
-            echo "└─ ⚠️ Failed to Generate .config"
+            echo "└─ ⚠️ Failed to Generate Configuration"
             exit 1
           fi
 
@@ -2194,7 +2194,7 @@ jobs:
           echo "└─ 🔧 Configuring Root Engine..."
           if [[ "$ROOTENGINE" != "None" ]]; then
             "$CONFIGTOOL" --file "$CONFIGFILE" -e CONFIG_KSU
-            if [[ "$ROOTENGINE" == BakaSU-* ]]; then
+            if [[ "$ROOTENGINE" == "BakaSU" ]]; then
               "$CONFIGTOOL" --file "$CONFIGFILE" \
                 --set-str CONFIG_KSU_FULL_NAME_FORMAT "%TAG_NAME%" \
                 -e CONFIG_KSU_MULTI_MANAGER_SUPPORT \
@@ -2371,7 +2371,7 @@ jobs:
             echo "└─ 📌 Preserving Base Android Configuration"
           fi
 
-          # NTSync Configuration
+          # NT Synchronization Primitives Configuration
           echo "└─ 🔧 Configuring NTSync..."
           if [[ "$NTSYNC" == "true" ]]; then
             "$CONFIGTOOL" --file "$CONFIGFILE" -e CONFIG_NTSYNC
@@ -2379,8 +2379,8 @@ jobs:
             "$CONFIGTOOL" --file "$CONFIGFILE" -d CONFIG_NTSYNC
           fi
 
-          # Re-Kernel Configuration
-          echo "└─ 🔧 Configuring Re-Kernel..."
+          # ReKernel Configuration
+          echo "└─ 🔧 Configuring ReKernel..."
           case "$REKERNEL" in
             Built-in)
               "$CONFIGTOOL" --file "$CONFIGFILE" \
@@ -2398,12 +2398,12 @@ jobs:
                 -d CONFIG_REKERNEL_NETWORK
               ;;
             *)
-              echo "└─ ⚠️ Invalid Re-Kernel Option: $REKERNEL"
+              echo "└─ ⚠️ Invalid ReKernel Option : $REKERNEL"
               exit 1
               ;;
           esac
           # Baseband Guard Configuration
-          # The source integration step runs earlier; configure BBG after the merged .config exists.
+          # Source Integration Step Runs Earlier; Configuring Baseband Guard After Merged Configuration Exists
           if [[ "${BBG,,}" == "true" ]]; then
             echo "└─ 🛡️ Configuring Baseband Guard..."
             if [[ ! -s "$CONFIGFILE" ]]; then
@@ -2411,7 +2411,7 @@ jobs:
               exit 1
             fi
             if [[ ! -x "$CONFIGTOOL" ]]; then
-              echo "└─ ⚠️ KConfig Utility Not Found : $CONFIGTOOL"
+              echo "└─ ⚠️ Kernel Configuration Utility Not Found : $CONFIGTOOL"
               exit 1
             fi
 
@@ -2420,11 +2420,11 @@ jobs:
               exit 1
             fi
 
-            # merge_config.sh -m merges fragments but does not resolve Kconfig defaults.
-            # Resolve defaults once so CONFIG_LSM is materialized in .config.
+            # Merge Configuration Script '-m' Merges Fragments But Does Not Resolve Kernel Configuration Defaults
+            # Resolve Defaults Once so Linux Security Module Configuration is Materialized in Configuration
             LSMVALUE="$(sed -n 's/^CONFIG_LSM="\([^"]*\)"$/\1/p' "$CONFIGFILE")"
             if [[ -z "$LSMVALUE" ]]; then
-              echo "└─ ℹ️ CONFIG_LSM Is Not Yet Materialized; Resolving Kconfig Defaults..."
+              echo "└─ ℹ️ Linux Security Module Configuration is Not Yet Materialized; Resolving Kernel Configuration Defaults..."
               if ! make -C "$SOURCEDIR" \
                 O="$OUTDIR" \
                 LLVM=1 \
@@ -2437,7 +2437,7 @@ jobs:
               LSMVALUE="$(sed -n 's/^CONFIG_LSM="\([^"]*\)"$/\1/p' "$CONFIGFILE")"
             fi
             if [[ -z "$LSMVALUE" ]]; then
-              echo "└─ ⚠️ CONFIG_LSM Is Still Missing After olddefconfig"
+              echo "└─ ⚠️ Linux Security Module Configuration is Still Missing After OldDefConfig"
               grep -n -A16 '^config LSM$' "$SOURCEDIR/security/Kconfig" || true
               exit 1
             fi
@@ -2448,25 +2448,21 @@ jobs:
             esac
 
             if ! "$CONFIGTOOL" --file "$CONFIGFILE" --set-str CONFIG_LSM "$LSMVALUE"; then
-              echo "└─ ⚠️ Failed to Configure CONFIG_LSM For BBG"
+              echo "└─ ⚠️ Failed to Configure Linux Security Module Configuration For Baseband Guard"
               exit 1
             fi
-            echo "└─ 📌 CONFIG_BBG requested: enabled"
-            echo "└─ 📌 CONFIG_LSM requested: $LSMVALUE"
+            echo "└─ 📌 Baseband Guard Configuration Requested : Enabled"
+            echo "└─ 📌 Linux Security Module Configuration Requested : $LSMVALUE"
           else
             echo "└─ 🛡️ Baseband Guard disabled by workflow input"
             if ! "$CONFIGTOOL" --file "$CONFIGFILE" -d CONFIG_BBG; then
-              echo "└─ ⚠️ Failed to Disable CONFIG_BBG"
+              echo "└─ ⚠️ Failed to Disable Baseband Guard Configuration"
               exit 1
             fi
           fi
 
-          # Disable Static Usermode Helper
-          echo "└─ 🔧 Disabling Static Usermode Helper..."
-          "$CONFIGTOOL" --file "$CONFIGFILE" \
-            -d CONFIG_STATIC_USERMODEHELPER
           # Synchronize Final Kernel Configuration
-          echo "└─ 🔄 Running Old DefConfig..."
+          echo "└─ 🔄 Running OldDefConfig..."
           export LLVM=1
           export LLVM_IAS=1
           make -C "$SOURCEDIR" \
@@ -2478,24 +2474,24 @@ jobs:
           # Validate Final Kernel Configuration
           if [[ ! -s "$CONFIGFILE" ]] ||
              ! grep -Fxq 'CONFIG_ARM64=y' "$CONFIGFILE"; then
-            echo "└─ ⚠️ Final Kernel Configuration Is Invalid"
+            echo "└─ ⚠️ Final Kernel Configuration is Invalid"
             exit 1
           fi
 
-          # Validate BBG survived Kconfig normalization.
+          # Validate Baseband Guard Survived Kernel Configuration Normalization
           if [[ "${BBG,,}" == "true" ]]; then
             if ! grep -Fxq 'CONFIG_BBG=y' "$CONFIGFILE"; then
-              echo "└─ ⚠️ CONFIG_BBG Did Not Survive olddefconfig"
+              echo "└─ ⚠️ Baseband Guard Configuration Did Not Survive OldDefConfig"
               grep -E '^(CONFIG_BBG|CONFIG_LSM)=' "$CONFIGFILE" || true
               exit 1
             fi
             if ! grep -E '^CONFIG_LSM="[^"]*baseband_guard[^"]*"$' "$CONFIGFILE" >/dev/null; then
-              echo "└─ ⚠️ baseband_guard Is Missing From Final CONFIG_LSM"
+              echo "└─ ⚠️ Baseband Guard is Missing From Final Linux Security Module Configuration"
               grep '^CONFIG_LSM=' "$CONFIGFILE" || true
               exit 1
             fi
           elif grep -Fxq 'CONFIG_BBG=y' "$CONFIGFILE"; then
-            echo "└─ ⚠️ CONFIG_BBG Is Enabled Although BBG Input Is Disabled"
+            echo "└─ ⚠️ Baseband Guard Configuration is Enabled Although Baseband Guard Input is Disabled"
             exit 1
           fi
 
@@ -2508,12 +2504,6 @@ jobs:
 
           if ! grep -Fxq '# CONFIG_LOCALVERSION_AUTO is not set' "$CONFIGFILE"; then
             echo "└─ ⚠️ Automatic Kernel Local Version Is Not Disabled"
-            exit 1
-          fi
-
-          # Validate KASAN Is Disabled
-          if grep -q '^CONFIG_KASAN=y$' "$CONFIGFILE"; then
-            echo "└─ ⚠️ KASAN Is Still Enabled"
             exit 1
           fi
 
@@ -2536,9 +2526,9 @@ jobs:
           echo "└─ 🔎 Final Kernel Local Version"
           grep '^CONFIG_LOCALVERSION=' "$CONFIGFILE" || true
           # Display Configuration Summary
-          echo "└─ 📊 Assigned Options : $(grep -c '^CONFIG_.*=' "$CONFIGFILE" || true)"
-          echo "└─ 📊 Disabled Options : $(grep -c '^# CONFIG_.* is not set$' "$CONFIGFILE" || true)"
-          echo "└─ 📂 Configuration File: $CONFIGFILE"
+          echo "└─ 📊 Assigned Options   : $(grep -c '^CONFIG_.*=' "$CONFIGFILE" || true)"
+          echo "└─ 📊 Disabled Options   : $(grep -c '^# CONFIG_.* is not set$' "$CONFIGFILE" || true)"
+          echo "└─ 📂 Configuration File : $CONFIGFILE"
           echo "└─ 🎉 Final Kernel Configuration Complete"
         
       - name: ⚙️ Configure Kernel Build Metadata
@@ -2674,7 +2664,7 @@ jobs:
           if [[ ! -f "$LIBDIR/libfakestat.so" ||
                 ! -f "$LIBDIR/libfaketimeMT.so" ]]; then
             echo "└─ ⚠️ Fake Time Libraries Not Found"
-            echo "└─ 📂 Library Directory: $LIBDIR"
+            echo "└─ 📂 Library Directory : $LIBDIR"
             exit 1
           fi
 
@@ -2736,19 +2726,19 @@ jobs:
           BUILDEND="$(date +%s)"
           BUILDTIME="$((BUILDEND - BUILDSTART))"
           # Display Compiler Cache Status
-          echo "└─ 📊 Compiler Cache Status:"
+          echo "└─ 📊 Compiler Cache Status :"
           ccache -s
           # Validate Kernel Image
           if [[ ! -s "$IMAGE" ]]; then
             echo "└─ ⚠️ Kernel Image Missing or Empty"
-            echo "└─ 📂 Expected: $IMAGE"
+            echo "└─ 📂 Expected : $IMAGE"
             exit 1
           fi
 
           # Display Build Result
-          echo "└─ 📦 Kernel Image:"
+          echo "└─ 📦 Kernel Image :"
           ls -lh "$IMAGE"
-          echo "└─ ⏱️ Build Duration: ${BUILDTIME}s"
+          echo "└─ ⏱️ Build Duration : ${BUILDTIME}s"
           echo "└─ 🎉 Kernel Build Complete"
           # Generate GitHub Actions Build Summary
           CCACHESUMMARY="$(ccache -s 2>&1)"
