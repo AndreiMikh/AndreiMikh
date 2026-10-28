@@ -542,7 +542,7 @@ runs:
         		return 0;
         #endif // #ifdef CONFIG_KSU_SUSFS_SUS_MAP
         """        
-            print("└─ 🔧 Adding show_smap() Hook")
+            print("└─ 🔧 Adding SHOW SMAP() Hook")
             return fn.replace(anchor, replacement, 1)        
         source = edit(source, "static int show_smap(", fixsmap)              
         # Add SUSFS Map Bypass to SHOW SMAPS ROLLUP()
@@ -586,7 +586,7 @@ runs:
                         "Cannot Uniquely Locate Rollup VMA-End Assignment "
                         f"(Found: {len(matches)})"
                     )
-                # Preserve the Original Assignment and Its Indentation
+                # Preserve Original Assignment and its Indentation
                 match = matches[0]
                 replacement = (
                     "#ifdef CONFIG_KSU_SUSFS_SUS_MAP\n"
@@ -1512,7 +1512,7 @@ runs:
                 print("└─ ℹ️ SHOW SMAP() Fake Hook Not Found")
             return fn
         source = edit(source, "static int show_smap(", revertsmap)
-        # Remove Temporary Hook And Label From SHOW SMAPS ROLLUP()
+        # Remove Temporary Hook and Label From SHOW SMAPS ROLLUP()
         def revertsmapsrollup(fn):
             hook_pattern = re.compile(
                 r"(?ms)^[ \t]*#ifdef CONFIG_KSU_SUSFS_SUS_MAP[ \t]*\n"
