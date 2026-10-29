@@ -144,7 +144,7 @@ fun restorePatchContext(patch: File) {
         if (!idmap.exists()) {
             idmap.parentFile.mkdirs()
             idmap.writeText(
-                "/* Stub created by SusfsContext. Mount ID mapping helpers are provided elsewhere on this baseline. */\n"
+                "/* Stub Created by SuSFS Context Script, Mount ID Mapping Helpers are Provided Elsewhere on Baseline */\n"
             )
             stubCount++
             logContext(idmap, "Created Compatibility Stub For Missing Mount ID Mapping Headers")
