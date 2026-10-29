@@ -305,7 +305,7 @@ fun applyFdinfo(file: File) {
     )
     logApply(
         file,
-        "Replaced Mask Argument With INOTIFY MARK USER MASK(MARK)"
+        "Replaced Mask Argument With Inotify Mark User Mask(Mark)"
     )
     file.replaceEachLine(
         Regex("""ignored_mask:%x"""),
@@ -601,7 +601,7 @@ fun applyPostPatchFixups() {
             )
             logPostfix(
                 openC,
-                "Rewrote 3-Arg Getname Flags() to 2-Arg Form"
+                "Rewrote 3-Arguments Getname Flags() to 2-Arguments Form"
             )
         }
     }
@@ -624,7 +624,7 @@ fun apply() {
             )
             logApply(
                 file,
-                "Normalized This LEN/MIN T() to Size T"
+                "Normalized This Len/Min T() to Size T"
             )
         }
         if (sublevel <= 117) {
@@ -802,7 +802,7 @@ fun revert() {
             ) {
                 logRevert(
                     file,
-                    "Restored Int This LEN/MIN T(Int)"
+                    "Restored Int This Len/Min T(Int)"
                 )
             }
         }
